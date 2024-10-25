@@ -8,8 +8,8 @@
 <div class="row d-flex align-items-center justify-content-center">
     <div class="col-md-3 card p-3">
         <h2 class="text-center text-info">Login</h2>
-            <form asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly"></div>
+        <form asp-action="UserLogin" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-1">
                     <label asp-for="UserName"></label>
                     <input asp-for="UserName" class="form-control" />
@@ -30,7 +30,7 @@
                         <a asp-action="UserRegister">Don't have account</a>
                     </div>
                     <div class="col-4">
-                        <input type="button" value="Login" class="btn btn-primary btn-sm" />
+                        <input type="submit" value="Login" class="btn btn-primary btn-sm" />
                     </div>
                 </div>
             </form>
@@ -38,3 +38,9 @@
         </h2>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}                         

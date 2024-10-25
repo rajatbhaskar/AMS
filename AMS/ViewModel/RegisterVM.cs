@@ -16,6 +16,7 @@ namespace AMS.ViewModel
         [Required(ErrorMessage = "Password is Required")]
         [StringLength(40,MinimumLength =8)]
         [DataType(DataType.Password)]
+        [Display(Name= "Confirm Password")]
         [Compare("ConfirmPassword", ErrorMessage ="Password Donot Match")]
         public string? Password { get; set; }
 
