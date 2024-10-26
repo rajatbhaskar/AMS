@@ -1,0 +1,32 @@
+﻿@using AMS.ViewModel
+@model AddAttendenceVM
+
+<form asp-action="AddAttendance" method="post" class="row ">
+
+    <div class="col-3">
+        <label for="Date" class="form-label">Date</label>
+        <input type="Date" class="form-control" id="inputEmail4">
+    </div>
+
+    <div class="col-3">
+        <label for="SubjectId" class="form-label">Subject</label>
+        <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.subjects"></select>
+       
+    </div>
+
+    <div class=" form-switch col-3">
+
+        <label class="form-label" for="IsPresent">Is Present</label>
+        <input asp-for="@Model.IsPresent" class="form-check-input" type="checkbox" checked>
+            
+       
+        
+    </div>
+
+    <div class="col-3">
+        <input type="submit" value="Submit" class="btn btn-primary btn-sm" />
+    </div>
+
+</form>
+
+

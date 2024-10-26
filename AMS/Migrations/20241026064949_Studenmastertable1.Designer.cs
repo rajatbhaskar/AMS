@@ -4,6 +4,7 @@ using AMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026064949_Studenmastertable1")]
+    partial class Studenmastertable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,12 +42,15 @@ namespace AMS.Migrations
                     b.Property<bool>("IsPresent")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId_Fkey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("sub_infoSubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("StudentEnroll_Id");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("sub_infoSubjectId");
 
                     b.ToTable("Student_Masters");
                 });
@@ -86,9 +92,6 @@ namespace AMS.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("EnrollNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
@@ -276,7 +279,9 @@ namespace AMS.Migrations
                 {
                     b.HasOne("AMS.Models.Subject_Info", "sub_info")
                         .WithMany()
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("sub_infoSubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("sub_info");
                 });

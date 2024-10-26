@@ -30,7 +30,7 @@ namespace AMS.Controllers
                 var result = await signInManager.PasswordSignInAsync(modeldata.UserName,modeldata.Password,modeldata.RememberMe,false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Home", "DashBoard");
+                    return RedirectToAction("Dashboard", "Home");
                 }
             }
             ModelState.AddModelError("", "Login Failed");
@@ -52,13 +52,14 @@ namespace AMS.Controllers
                     FullName = modeldata.Name,
                     Email = modeldata.Email,
                     UserName=modeldata.Email,
+                    EnrollNumber = modeldata.EnrollNumber,  
 
 
                 };
                 var result=  await userManager.CreateAsync(user,modeldata.Password);
                 if (result.Succeeded) 
                 {
-                    return RedirectToAction("Login", "UserLogin");
+                    return RedirectToAction("UserLogin", "Login");
                 }
 
                 foreach (var error in result.Errors)

@@ -4,6 +4,7 @@ using AMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026070245_remove table1")]
+    partial class removetable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,52 +24,6 @@ namespace AMS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AMS.Models.Student_Master", b =>
-                {
-                    b.Property<int>("StudentEnroll_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentEnroll_Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAbsent")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPresent")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentEnroll_Id");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("Student_Masters");
-                });
-
-            modelBuilder.Entity("AMS.Models.Subject_Info", b =>
-                {
-                    b.Property<int?>("SubjectId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("SubjectId"));
-
-                    b.Property<string>("SubjectDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubjectName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SubjectId");
-
-                    b.ToTable("Subject_Infos");
-                });
 
             modelBuilder.Entity("AMS.Models.Users", b =>
                 {
@@ -86,9 +43,6 @@ namespace AMS.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("EnrollNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
@@ -270,15 +224,6 @@ namespace AMS.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("AMS.Models.Student_Master", b =>
-                {
-                    b.HasOne("AMS.Models.Subject_Info", "sub_info")
-                        .WithMany()
-                        .HasForeignKey("SubjectId");
-
-                    b.Navigation("sub_info");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

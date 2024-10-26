@@ -13,6 +13,9 @@ namespace AMS.ViewModel
 
         public string? Email { get; set; }
 
+        [Display(Name = "Enrollment Number")]
+        public string? EnrollNumber { get; set; }
+
         [Required(ErrorMessage = "Password is Required")]
         [StringLength(40,MinimumLength =8)]
         [DataType(DataType.Password)]
