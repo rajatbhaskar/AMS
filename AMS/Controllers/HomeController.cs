@@ -2,6 +2,7 @@ using AMS.Data;
 using AMS.Models;
 using AMS.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -37,11 +38,30 @@ namespace AMS.Controllers
 
         [HttpPost]
         public IActionResult AddAttendance(AddAttendenceVM modeldata)
-        {
+        {  if (ModelState.IsValid)
+            {
+                Student_Master stdmaster = new Student_Master();
+                {
+                    stdmaster.Date = modeldata.Date;
+                    stdmaster.SubjectId= modeldata.SubjectId; 
+                    if(modeldata.IsPresent==false)
+                        stdmaster.IsAbsent = true;
+                    stdmaster.IsPresent= modeldata.IsPresent;
+                };
 
-            
+                var result=_dbContext.Add(stdmaster);
+                _dbContext.SaveChanges();
+                TempData["AlertMsg"] = "Attendence Added Successfully";
+                RedirectToAction("AddAttendance");
+
+
+            }
+
             return View();
         }
+
+          
+        
         public IActionResult Privacy()
         {
             return View();

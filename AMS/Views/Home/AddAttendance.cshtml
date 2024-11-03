@@ -1,6 +1,18 @@
 ﻿@using AMS.ViewModel
 @model AddAttendenceVM
 
+
+@if (TempData["AlertMsg"]!=null)
+{
+    <div class="alert-success">
+
+        @TempData["AlertMsg"]
+        <button type="button" class="btn-close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+
 <form asp-action="AddAttendance" method="post" class="row ">
 
     <div class="col-3">
@@ -11,22 +23,21 @@
     <div class="col-3">
         <label for="SubjectId" class="form-label">Subject</label>
         <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.subjects"></select>
-       
+
     </div>
 
-    <div class=" form-switch col-3">
+    <div class="form-switch col-3">
 
         <label class="form-label" for="IsPresent">Is Present</label>
-        <input asp-for="@Model.IsPresent" class="form-check-input" type="checkbox" checked>
-            
-       
-        
+        <input asp-for="@Model.IsPresent"  style="margin-top:10px;margin-left:20px" class="form-check-input form-control" type="checkbox" checked>
+
     </div>
 
     <div class="col-3">
-        <input type="submit" value="Submit" class="btn btn-primary btn-sm" />
+        <input type="submit" value="Submit" class="btn btn-primary btn-sm" style="margin-top:35px"/>
     </div>
 
 </form>
 
 
+<script src="~/js/site.js"></script>
