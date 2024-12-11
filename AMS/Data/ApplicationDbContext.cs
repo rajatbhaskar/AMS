@@ -6,7 +6,7 @@ using static Azure.Core.HttpHeader;
 
 namespace AMS.Data
 {
-    public class ApplicationDbContext:IdentityDbContext<Users>
+    public class ApplicationDbContext:IdentityDbContext<Users>  
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {

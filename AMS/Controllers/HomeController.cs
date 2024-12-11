@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Linq;
 
 namespace AMS.Controllers
 {
@@ -33,7 +34,21 @@ namespace AMS.Controllers
         {
 
             ViewBag.subjects = new SelectList(_dbContext.Subject_Infos, "SubjectId", "SubjectName");
-            return View();
+            var studentlist= _dbContext.Student_Masters.ToList();
+            var subjectlist = _dbContext.Subject_Infos.ToList();
+            var result = (from st in studentlist // outer sequence
+                         join sb in subjectlist //inner sequence 
+                         on st.SubjectId equals sb.SubjectId // key selector 
+                         select new
+                         { 
+                             
+                             SubjectName = sb.SubjectName,
+                             IsPresent=  st.IsPresent,
+                             IsAbsent= st.IsPresent,
+                        });
+            AddAttendenceVM obj = new AddAttendenceVM();
+            //obj.StudentList = result.ToList();
+            return View(result);
         }
 
         [HttpPost]

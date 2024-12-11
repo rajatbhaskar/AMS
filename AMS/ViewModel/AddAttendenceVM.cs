@@ -16,7 +16,11 @@ namespace AMS.ViewModel
 
        // public IEnumerable<Subject_Info>? SubjectId { get; set; }
        public int? SubjectId { get; set; }
-        
+
+        public string? SubjectName { get; set; }
+
+        public IEnumerable<AddAttendenceVM>? StudentList { get; set; }
+
 
     }
 }
